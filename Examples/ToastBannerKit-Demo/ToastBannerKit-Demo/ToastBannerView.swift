@@ -8,30 +8,30 @@
 import SwiftUI
 import ToastBannerKit
 
-struct BannerView: View {
+struct ToastBannerView: View {
     
     // MARK: Dependencies
-    let banner: BannerUIModel?
+    let toastBanner: ToastBannerUIModel?
     
     // MARK: - View
     var body: some View {
-        if let banner {
+        if let toastBanner {
             VStack(alignment: .leading, spacing: 8) {
-                Text(banner.title)
+                Text(toastBanner.title)
                 
-                if let description = banner.description {
+                if let description = toastBanner.description {
                     Text(description)
                         .multilineTextAlignment(.leading)
                 }
             }
             .padding()
             .frame(maxWidth: .infinity)
-            .background(banner.style.rawValue == BannerStyle.success.rawValue ? Color.green : Color.red)
+            .background(toastBanner.style.rawValue == ToastBannerStyle.success.rawValue ? Color.green : Color.red)
         }
     }
 }
 
 // MARK: - Preview
 #Preview {
-    BannerView(banner: .init(title: "preview", style: BannerStyle.success))
+    ToastBannerView(toastBanner: .init(title: "preview", style: ToastBannerStyle.success))
 }

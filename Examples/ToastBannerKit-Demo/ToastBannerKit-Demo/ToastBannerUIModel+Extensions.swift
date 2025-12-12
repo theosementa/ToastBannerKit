@@ -8,10 +8,10 @@
 import Foundation
 import ToastBannerKit
 
-extension BannerUIModel {
-    static let successBanner: BannerUIModel = .init(
+extension ToastBannerUIModel {
+    static let successBanner: ToastBannerUIModel = .init(
         title: "This is a success banner",
         description: "This is a description for my toast banner.",
-        style: BannerStyle.error
+        style: ToastBannerStyle.error
     )
 }

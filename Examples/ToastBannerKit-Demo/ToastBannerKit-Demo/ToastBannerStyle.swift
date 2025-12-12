@@ -8,7 +8,7 @@
 import Foundation
 import ToastBannerKit
 
-enum BannerStyle: String, ToastBannerStyleProtocol {
+enum ToastBannerStyle: String, ToastBannerStyleProtocol {
     case error
     case success
 }

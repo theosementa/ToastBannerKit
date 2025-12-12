@@ -12,15 +12,15 @@ import Foundation
 public class ToastBannerService {
     @MainActor public static let shared: ToastBannerService = .init()
     
-    public var banner: BannerUIModel?
+    public var toastBanner: ToastBannerUIModel?
     
     public init() { }
 }
 
 public extension ToastBannerService {
     
-    public func send(_ item: BannerUIModel) {
-        self.banner = item
+    func send(_ item: ToastBannerUIModel) {
+        self.toastBanner = item
     }
     
 }

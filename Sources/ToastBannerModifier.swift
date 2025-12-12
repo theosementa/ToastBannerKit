@@ -8,19 +8,19 @@
 import Foundation
 import SwiftUI
 
-struct BannerModifier<BannerView: View>: ViewModifier {
+struct ToastBannerModifier<BannerView: View>: ViewModifier {
 
     // MARK: Dependencies
-    @Binding var item: BannerUIModel?
-    let bannerView: (BannerUIModel) -> BannerView
+    @Binding var item: ToastBannerUIModel?
+    let bannerView: (ToastBannerUIModel) -> BannerView
 
     // MARK: States
     @State private var workItem: DispatchWorkItem?
 
     // MARK: Init
     init(
-        item: Binding<BannerUIModel?>,
-        bannerView: @escaping (BannerUIModel) -> BannerView
+        item: Binding<ToastBannerUIModel?>,
+        bannerView: @escaping (ToastBannerUIModel) -> BannerView
     ) {
         self._item = item
         self.bannerView = bannerView
@@ -42,7 +42,7 @@ struct BannerModifier<BannerView: View>: ViewModifier {
 }
 
 // MARK: - Subviews
-extension BannerModifier {
+extension ToastBannerModifier {
 
     @ViewBuilder
     func bannerDisplayedView() -> some View {
@@ -58,7 +58,7 @@ extension BannerModifier {
 }
 
 // MARK: - Functions
-extension BannerModifier {
+extension ToastBannerModifier {
 
     private func showBanner() {
         guard let item else { return }
@@ -85,9 +85,9 @@ extension BannerModifier {
 // MARK: - UI
 public extension View {
     func toastBanner<BannerContent: View>(
-        item: Binding<BannerUIModel?>,
-        @ViewBuilder content: @escaping (BannerUIModel) -> BannerContent
+        item: Binding<ToastBannerUIModel?>,
+        @ViewBuilder content: @escaping (ToastBannerUIModel) -> BannerContent
     ) -> some View {
-        modifier(BannerModifier(item: item, bannerView: content))
+        modifier(ToastBannerModifier(item: item, bannerView: content))
     }
 }

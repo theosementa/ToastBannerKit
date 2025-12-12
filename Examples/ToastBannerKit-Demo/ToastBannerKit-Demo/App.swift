@@ -17,8 +17,8 @@ struct ToastBannerKit_DemoApp: App {
         WindowGroup {
             ContentView()
                 .environment(toastBannerService)
-                .toastBanner(item: $toastBannerService.banner) { banner in
-                    BannerView(banner: banner)
+                .toastBanner(item: $toastBannerService.toastBanner) { toastBanner in
+                    ToastBannerView(toastBanner: toastBanner)
                 }
         }
     }

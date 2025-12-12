@@ -8,11 +8,11 @@
 import Foundation
 import UIKit
 
-public struct BannerUIModel: Equatable {
+public struct ToastBannerUIModel: Equatable {
     public var title: String
     public var description: String?
     public var uiImage: UIImage?
-    public var style: ToastBannerStyleProtocol
+    public var style: any ToastBannerStyleProtocol
     public var duration: Double
     
     // MARK: Init
@@ -20,7 +20,7 @@ public struct BannerUIModel: Equatable {
         title: String,
         description: String? = nil,
         uiImage: UIImage? = nil,
-        style: ToastBannerStyleProtocol,
+        style: any ToastBannerStyleProtocol,
         duration: Double = 3,
     ) {
         self.title = title
@@ -31,7 +31,7 @@ public struct BannerUIModel: Equatable {
     }
     
     // MARK: Equatable
-    public static func == (lhs: BannerUIModel, rhs: BannerUIModel) -> Bool {
+    public static func == (lhs: ToastBannerUIModel, rhs: ToastBannerUIModel) -> Bool {
         return lhs.title == rhs.title
     }
 }
