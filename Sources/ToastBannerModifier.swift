@@ -16,13 +16,18 @@ struct ToastBannerModifier<BannerView: View>: ViewModifier {
 
     // MARK: States
     @State private var workItem: DispatchWorkItem?
+    
+    // MARK: Constants
+    private let configuration: ToastBannerModifierConfiguration
 
     // MARK: Init
     init(
         item: Binding<ToastBannerUIModel?>,
+        configuration: ToastBannerModifierConfiguration,
         bannerView: @escaping (ToastBannerUIModel) -> BannerView
     ) {
         self._item = item
+        self.configuration = configuration
         self.bannerView = bannerView
     }
 
@@ -32,8 +37,8 @@ struct ToastBannerModifier<BannerView: View>: ViewModifier {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .overlay {
                 bannerDisplayedView()
-                    .offset(y: 30)
-                    .animation(.spring(), value: item)
+                    .offset(y: configuration.yOffset)
+                    .animation(configuration.animation, value: item)
             }
             .onChange(of: item) {
                 showBanner()
@@ -52,7 +57,7 @@ extension ToastBannerModifier {
                     .onTapGesture { dismissBanner() }
                 Spacer()
             }
-            .transition(.move(edge: .top))
+            .transition(configuration.transition)
         }
     }
 }
@@ -81,13 +86,30 @@ extension ToastBannerModifier {
         workItem = nil
     }
 }
+    
+public struct ToastBannerModifierConfiguration {
+    let yOffset: CGFloat
+    let animation: Animation
+    let transition: AnyTransition
+    
+    public init(
+        yOffset: CGFloat = 30,
+        animation: Animation = .spring(),
+        transition: AnyTransition = .move(edge: .top)
+    ) {
+        self.yOffset = yOffset
+        self.animation = animation
+        self.transition = transition
+    }
+}
 
 // MARK: - UI
 public extension View {
     func toastBanner<BannerContent: View>(
         item: Binding<ToastBannerUIModel?>,
+        config: ToastBannerModifierConfiguration = .init(),
         @ViewBuilder content: @escaping (ToastBannerUIModel) -> BannerContent
     ) -> some View {
-        modifier(ToastBannerModifier(item: item, bannerView: content))
+        modifier(ToastBannerModifier(item: item, configuration: config, bannerView: content))
     }
 }
