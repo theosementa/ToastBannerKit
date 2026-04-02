@@ -19,8 +19,14 @@ public class ToastBannerService {
 
 public extension ToastBannerService {
     
-    func send(_ item: ToastBannerUIModel) {
-        self.toastBanner = item
+    @MainActor
+    func send(_ item: ToastBannerUIModel, delay: Double = 0) {
+        Task {
+            if delay > 0 {
+                try? await Task.sleep(for: .seconds(delay))
+            }
+            self.toastBanner = item
+        }
     }
     
 }
