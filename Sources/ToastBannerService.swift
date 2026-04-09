@@ -14,6 +14,11 @@ public class ToastBannerService {
     
     public var toastBanner: ToastBannerUIModel?
     
+    /// Whether a toast banner is currently presented.
+    public var isPresented: Bool {
+        toastBanner != nil
+    }
+    
     public init() { }
 }
 
@@ -27,6 +32,12 @@ public extension ToastBannerService {
             }
             self.toastBanner = item
         }
+    }
+    
+    /// Dismisses the currently presented toast banner immediately.
+    @MainActor
+    func dismiss() {
+        self.toastBanner = nil
     }
     
 }
